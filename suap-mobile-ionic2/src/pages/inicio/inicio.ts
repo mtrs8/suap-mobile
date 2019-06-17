@@ -48,9 +48,9 @@ export class InicioPage {
       this.navCtrl.setRoot(LoginPage);
     });
 
-    this.telaInicialService.get_banners_ativos().then(banners => {
-      this.banners = banners;
-    });
+    // this.telaInicialService.get_banners_ativos().then(banners => {
+    //   this.banners = banners;
+  //  });
   }
 
   launchUrl(url) {
