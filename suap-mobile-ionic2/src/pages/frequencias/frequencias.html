@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Frequências</h5>
+
+  <ion-card inset>
+    <ion-card-header>
+      <strong>Preencha os campos abaixo:</strong>
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label>Início</ion-label>
+        <ion-datetime [(ngModel)]="data_inicio" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="Cancelar" doneText="Ok" monthNames="Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Término</ion-label>
+        <ion-datetime [(ngModel)]="data_termino" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="Cancelar" doneText="Ok" monthNames="Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"></ion-datetime>
+      </ion-item>
+
+      <button ion-item (click)="get_frequencias()">
+        Buscar
+        <ion-icon item-right name="search"></ion-icon>
+      </button>
+    </ion-list>
+  </ion-card>
+</ion-content>

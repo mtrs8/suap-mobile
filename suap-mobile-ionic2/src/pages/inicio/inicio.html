@@ -1,0 +1,150 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Início</h5>
+
+  <ion-card *ngIf="authService.usuario_logado.tipo_vinculo == 'Servidor'">
+    <ion-card-header>
+      <strong>Dados Funcionais</strong>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <strong>Nome: </strong> <br/>
+            {{ authService.usuario_logado.vinculo.nome|uppercase }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Cargo: </strong> <br/>
+            {{ authService.usuario_logado.vinculo.cargo|uppercase }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Jornada Semanal: </strong> <br/>
+            {{ authService.usuario_logado.vinculo.jornada_trabalho|uppercase }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Matrícula: </strong> <br/>
+            {{ authService.usuario_logado.matricula }}
+          </ion-col>
+
+          <ion-col>
+            <strong>Setor: </strong> <br/>
+            <ion-badge color="subtle">{{ (authService.usuario_logado.vinculo.setor_suap|uppercase) || 'Nenhum Setor' }}</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="authService.usuario_logado.tipo_vinculo == 'Servidor' && frequencias?.total_tempo_semana">
+    <ion-card-header>
+      <strong>Frequências</strong>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <strong>Hoje: </strong> <br/>
+            <ion-badge *ngFor="let frequencia of frequencias?.frequencias_hoje; let last=last" [color]="frequencia.acao == 'E' ? 'secondary' : 'danger'" style="margin-right: 5px;">
+              {{ frequencia.acao }}: {{ frequencia.horario.substring(11, 16) }}
+            </ion-badge>
+            <ion-badge color="danger" *ngIf="frequencias?.frequencias_hoje?.length == 0">Não há registro de frequências.</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col *ngIf="frequencias?.total_tempo_hoje">
+            <strong>Total de Hoje: </strong> <br/>
+            <ion-badge color="subtle">
+              {{ frequencias?.total_tempo_hoje }}
+            </ion-badge>
+          </ion-col>
+          <ion-col>
+            <strong>Total de Semana: </strong> <br/>
+            <ion-badge color="subtle">
+              {{ frequencias?.total_tempo_semana }}
+            </ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-badge margin padding style="margin-bottom:10px; line-height: 130%;" text-wrap color="danger" *ngIf="(authService.usuario_logado.tipo_vinculo == 'Aluno' || authService.usuario_logado.tipo_vinculo == 'Nenhum') && authService.usuario_logado.vinculo.situacao_sistemica == 'Matriculado no Q-Acadêmico'">
+    <span style="font-size:16px;">Atenção!</span>
+    <br/><br/>
+    As funcionalidades do aplicativo só estão disponíveis para os alunos matriculados no SUAP ou migrados do Q-Acadêmico.
+  </ion-badge>
+
+  <ion-badge margin padding style="margin-bottom:10px; line-height: 130%; color: #8a6d3b;" text-wrap color="warning" *ngIf="authService.is_acesso_responsavel()">
+    <span style="font-size:16px;">Informação!</span>
+    <br/><br/>
+    Você está acessando como Responsável pelo Aluno: {{ authService.usuario_logado.nome_usual }}
+  </ion-badge>
+
+  <ion-card *ngIf="authService.usuario_logado.tipo_vinculo == 'Aluno' || authService.usuario_logado.tipo_vinculo == 'Nenhum'">
+    <ion-card-header>
+      <strong>Dados Acadêmicos</strong>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <strong>Nome: </strong> <br/>
+            {{ authService.usuario_logado.vinculo.nome|uppercase }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Curso: </strong> <br/>
+            {{ authService.usuario_logado.vinculo.curso|uppercase }} / {{ authService.usuario_logado.vinculo.campus|uppercase }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Matrícula: </strong> <br/>
+            {{ authService.usuario_logado.matricula }}
+          </ion-col>
+
+          <ion-col>
+            <strong>Situação: </strong> <br/>
+            <ion-badge color="subtle">{{ authService.usuario_logado.vinculo.situacao }}</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngFor="let banner of banners;">
+    <ion-card-header text-wrap>
+      <strong>{{ banner.titulo }}</strong>
+    </ion-card-header>
+    <ion-card-content>
+      <img src="{{ 'https://suap.ifrn.edu.br/' + banner.imagem }}" (click)="launchUrl(banner.link)" />
+    </ion-card-content>
+  </ion-card>
+</ion-content>

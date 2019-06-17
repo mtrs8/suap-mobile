@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>
+    Detalhamento de Contracheque <br/>
+    {{ contracheque?.nome_mes }} | {{ contracheque?.ano }}
+
+    <ion-card>
+      <ion-card-header>
+        <ion-icon color="secondary" name="add-circle"></ion-icon>
+        <strong>Rendimentos</strong>
+      </ion-card-header>
+      <ion-list>
+        <ion-item *ngFor="let ccr of contracheque?.rendimentos">
+          <p>{{ ccr.descricao }}</p>
+          <p item-right class="txt-secondary">
+            <strong>{{ ccr.valor|currency:'BRL':true }}</strong>
+          </p>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-icon color="danger" name="remove-circle"></ion-icon>
+        <strong>Descontos</strong>
+      </ion-card-header>
+      <ion-list>
+        <ion-item *ngFor="let ccr of contracheque?.descontos">
+          <p>{{ ccr.descricao }}</p>
+          <p item-right class="txt-danger">
+            <strong>{{ ccr.valor|currency:'BRL':true }}</strong>
+          </p>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <strong>Total</strong>
+      </ion-card-header>
+      <ion-card-content class="card-content-total">
+        <ion-grid>
+          <ion-row wrap>
+            <ion-col text-center col-12 col-sm-4>
+              <h5 item-text class="txt-secondary">Bruto</h5>
+              <a item-text class="txt-secondary">{{ contracheque?.bruto|currency:'BRL':true }}</a>
+            </ion-col>
+            <ion-col text-center col-12 col-sm-4>
+              <h5 item-text class="txt-danger">Descontos</h5>
+              <a item-text class="txt-danger">{{ contracheque?.desconto|currency:'BRL':true }}</a>
+            </ion-col>
+            <ion-col text-center col-12 col-sm-4>
+              <h5 item-text class="txt-primary">Líquido</h5>
+              <a item-text class="txt-primary">{{ contracheque?.liquido|currency:'BRL':true }}</a>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </h5>
+</ion-content>

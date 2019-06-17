@@ -1,0 +1,134 @@
+<ion-menu [content]="content" (ionOpen)="menuOpened()" (ionClose)="menuClosed()">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title>
+        <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+      </ion-title>
+    </ion-toolbar>
+    <ion-list no-lines no-margin>
+      <ion-item color="dark" *ngIf="!authService.is_acesso_responsavel()">
+        <div class="avatar" item-left>
+          <img src="https://suap.ifrn.edu.br/{{ authService.usuario_logado.url_foto_75x100 }}">
+        </div>
+        <h2>{{ authService.usuario_logado.nome_usual }}</h2>
+        <p>{{ authService.usuario_logado.email }}</p>
+      </ion-item>
+
+      <ion-item color="dark" *ngIf="authService.is_acesso_responsavel()">
+        <h2>{{ authService.usuario_logado.nome_usual }}</h2>
+        <p><strong>Acesso como Responsável</strong></p>
+      </ion-item>
+    </ion-list>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item detail-none (click)="abrirInicioPage()">
+        <ion-icon name="home" item-left></ion-icon>
+        Início
+      </button>
+
+      <!-- Alunos -->
+
+      <!--<ion-list class="accordion-menu">
+        <button ion-item detail-none *ngIf="(authService.usuario_logado.tipo_vinculo == 'Aluno' || authService.usuario_logado.tipo_vinculo == 'Nenhum') && authService.usuario_logado.vinculo.situacao_sistemica != 'Matriculado no Q-Acadêmico'" (click)="toggleGroup('documentos')" [ngClass]="{active: isGroupShown('documentos')}">
+          <ion-icon name="document" item-left></ion-icon>
+          Documentos
+          <ion-icon color="subtle" name="ios-arrow-up" *ngIf="isGroupShown('documentos')" item-right></ion-icon>
+          <ion-icon color="subtle" name="ios-arrow-down" *ngIf="!isGroupShown('documentos')" item-right></ion-icon>
+        </button>
+        <div *ngIf="isGroupShown('documentos')">
+          <ion-list>
+            <button menuClose ion-item>
+              Histórico Parcial
+            </button>
+            <button menuClose ion-item>
+              Comprovante de Matrícula
+            </button>
+          </ion-list>
+        </div>
+      </ion-list>-->
+      
+      <button menuClose ion-item detail-none *ngIf="(authService.usuario_logado.tipo_vinculo == 'Aluno' || authService.usuario_logado.tipo_vinculo == 'Nenhum') && authService.usuario_logado.vinculo.situacao_sistemica != 'Matriculado no Q-Acadêmico'" (click)="abrirTurmasVirtuaisPage()">
+        <ion-icon name="bookmarks" item-left></ion-icon>
+        Turmas Virtuais
+      </button>
+
+      <button menuClose ion-item detail-none *ngIf="(authService.usuario_logado.tipo_vinculo == 'Aluno' || authService.usuario_logado.tipo_vinculo == 'Nenhum') && authService.usuario_logado.vinculo.situacao_sistemica != 'Matriculado no Q-Acadêmico'" (click)="abrirLocaisHorariosAulasPage()">
+        <ion-icon name="clock" item-left></ion-icon>
+        Locais e Horários de Aula
+      </button>
+
+      <button menuClose ion-item detail-none *ngIf="(authService.usuario_logado.tipo_vinculo == 'Aluno' || authService.usuario_logado.tipo_vinculo == 'Nenhum') && authService.usuario_logado.vinculo.situacao_sistemica != 'Matriculado no Q-Acadêmico'" (click)="abrirBoletimPage()">
+        <ion-icon name="paper" item-left></ion-icon>
+        Boletins
+      </button>
+
+      <button menuClose ion-item detail-none *ngIf="(authService.usuario_logado.tipo_vinculo == 'Aluno' || authService.usuario_logado.tipo_vinculo == 'Nenhum') && authService.usuario_logado.vinculo.situacao_sistemica != 'Matriculado no Q-Acadêmico'" (click)="abrirProximasAvaliacoesPage()">
+        <ion-icon name="calendar" item-left></ion-icon>
+        Próximas Avaliações
+      </button>
+
+      <!-- Servidor -->
+      
+      <ion-list class="accordion-menu">
+        <button ion-item detail-none *ngIf="authService.usuario_logado.tipo_vinculo == 'Servidor'" (click)="toggleGroup('meus_dados')" [ngClass]="{active: isGroupShown('meus_dados')}">
+          <ion-icon name="person" item-left></ion-icon>
+          Meus Dados
+          <ion-icon color="subtle" name="ios-arrow-up" *ngIf="isGroupShown('meus_dados')" item-right></ion-icon>
+          <ion-icon color="subtle" name="ios-arrow-down" *ngIf="!isGroupShown('meus_dados')" item-right></ion-icon>
+        </button>
+        <div *ngIf="isGroupShown('meus_dados')">
+          <ion-list>
+            <button menuClose ion-item (click)="abrirHistoricoFuncionalPage()">
+              Histórico Funcional
+            </button>
+            <button menuClose ion-item (click)="abrirFeriasPage()">
+              Férias
+            </button>
+            <button menuClose ion-item (click)="abrirOcorrenciasAfastamentosPage()">
+              Ocorrências/Afastamentos
+            </button>
+            <button menuClose ion-item (click)="abrirParticipacoesProjetosPage()">
+              Participações em Projetos
+            </button>
+          </ion-list>
+        </div>
+      </ion-list>
+
+      <button menuClose ion-item detail-none *ngIf="authService.usuario_logado.tipo_vinculo == 'Servidor'" (click)="abrirProcessosPage()">
+        <ion-icon name="paper" item-left></ion-icon>
+        Meus Processos
+      </button>
+
+      <button menuClose ion-item detail-none *ngIf="authService.usuario_logado.tipo_vinculo == 'Servidor'" (click)="abrirContrachequesPage()">
+        <ion-icon name="logo-usd" item-left></ion-icon>
+        Meus Contracheques
+      </button>
+
+      <button menuClose ion-item detail-none *ngIf="authService.usuario_logado.tipo_vinculo == 'Servidor'" (click)="abrirServidoresPage()">
+        <ion-icon name="people" item-left></ion-icon>
+        Servidores
+      </button>
+
+      <button menuClose ion-item detail-none *ngIf="authService.usuario_logado.tipo_vinculo == 'Servidor'" (click)="abrirSetoresPage()">
+        <ion-icon name="briefcase" item-left></ion-icon>
+        Setores
+      </button>
+
+      <!--<button menuClose ion-item detail-none>
+        <ion-icon name="cog" item-left></ion-icon>
+        Configurações
+      </button>-->
+
+      <button menuClose ion-item detail-none (click)="sair()">
+        <ion-icon name="exit" item-left></ion-icon>
+        Sair
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

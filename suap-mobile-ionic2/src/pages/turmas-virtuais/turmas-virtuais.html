@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Turmas Virtuais</h5>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Filtrar por período</ion-label>
+      <ion-select [(ngModel)]="ano_periodo_selecionado" cancelText="Cancelar" okText="Ok" (ngModelChange)="atualizar_turmas_virtuais()">
+        <ion-option *ngFor="let ano_periodo of anos_periodos_disponiveis" [value]="ano_periodo">{{ ano_periodo.ano_letivo }}.{{ ano_periodo.periodo_letivo }}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <button ion-item text-wrap *ngFor="let turma_virtual of turmas_virtuais" (click)="abrirTurmaVirtualPage(turma_virtual)">
+      <h2>
+        <strong>{{ turma_virtual.descricao }}</strong>
+      </h2>
+      <h3>{{ turma_virtual.sigla }}</h3>
+      <p *ngIf="turma_virtual.observacao">{{ turma_virtual.observacao }}</p>
+    </button> 
+  </ion-list>
+
+  <ion-list *ngIf="turmas_virtuais.length == 0">
+    <ion-item>
+      <ion-badge color="subtle">Nenhuma turma encontrada.</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

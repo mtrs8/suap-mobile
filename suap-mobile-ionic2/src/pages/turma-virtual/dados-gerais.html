@@ -1,0 +1,41 @@
+<ion-content padding>
+  <h5 text-center *ngIf="turma_virtual.id">Turma Virtual - {{ turma_virtual.id }} - {{ turma_virtual.componente_curricular }} </h5>
+  <br/>
+  <ion-card *ngIf="turma_virtual.id">
+    <ion-card-header>
+      <strong>Dados Gerais</strong>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        <strong>Ano e Período Letivo:</strong>
+        <br/> {{ turma_virtual.ano_letivo }}.{{ turma_virtual.periodo_letivo }}
+        <br/>
+        <strong>Locais de aula:</strong> 
+        <br/> {{ turma_virtual.locais_de_aula }}
+        <br/>
+        <strong>Data de Início e Término:</strong>
+        <br/> {{ turma_virtual.data_inicio|date:"dd/MM/y" }} à {{ turma_virtual.data_fim|date:"dd/MM/yyyy" }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="turma_virtual.id">
+    <ion-card-header>
+      <strong>Professores</strong>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let professor of turma_virtual.professores">
+          <ion-avatar item-left>
+            <img src="https://suap.ifrn.edu.br/{{ professor.foto }}">
+          </ion-avatar>
+          <h2>{{ professor.nome }}</h2>
+          <small>
+            Matrícula: {{ professor.matricula }} <br/>
+            Email: {{ professor.email }}
+          </small>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

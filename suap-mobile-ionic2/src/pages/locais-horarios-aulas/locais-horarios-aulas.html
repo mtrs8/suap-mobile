@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Locais e Horários de Aula</h5>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Filtrar por período</ion-label>
+      <ion-select [(ngModel)]="ano_periodo_selecionado" cancelText="Cancelar" okText="Ok" (ngModelChange)="atualizar_diarios()">
+        <ion-option *ngFor="let ano_periodo of anos_periodos_disponiveis" [value]="ano_periodo">{{ ano_periodo.ano_letivo }}.{{ ano_periodo.periodo_letivo }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item text-wrap *ngFor="let diario of diarios">
+      <h2>{{ diario.descricao }}</h2>
+      <h3>{{ diario.sigla }}</h3>
+      <p>
+        <strong>Local:</strong> {{ diario.locais_de_aula }}
+        <br/>
+        <strong>Horários:</strong> {{ diario.horarios_de_aula }}
+      </p>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="diarios.length == 0">
+    <ion-item>
+      <ion-badge color="subtle">Nenhum diário encontrado.</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

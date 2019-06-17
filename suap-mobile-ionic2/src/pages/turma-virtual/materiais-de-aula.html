@@ -1,0 +1,14 @@
+<ion-content padding>
+  <h5 text-center *ngIf="turma_virtual.id">Turma Virtual - {{ turma_virtual.id }} - {{ turma_virtual.componente_curricular }} </h5>
+  <br/>
+  
+  <ion-list>
+    <ion-item text-wrap *ngFor="let material_aula of turma_virtual.materiais_de_aula">
+      <h2>{{ material_aula.descricao }}</h2>
+      <p>{{ material_aula.data_vinculacao|date:"dd/MM/yyyy" }}</p>
+      <button ion-button item-right clear icon-only color="subtle" (click)="launchUrl(material_aula.url)">
+        <ion-icon name="cloud-download"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>

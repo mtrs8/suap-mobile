@@ -1,0 +1,34 @@
+<ion-content padding>
+  <form (ngSubmit)="acessar();">
+    <ion-card>
+      <ion-card-content>
+        <img class="logo-suap-login" src="assets/logo-login.png"/>
+        
+        <ion-list inset>
+          <ion-item>
+            <ion-label *ngIf="!acesso_responsavel" floating>Usuário</ion-label>
+            <ion-label *ngIf="acesso_responsavel" floating>Matrícula do Aluno</ion-label>
+            <ion-input name="usuario" type="text" [(ngModel)]="usuario" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label *ngIf="!acesso_responsavel" floating>Senha</ion-label>
+            <ion-label *ngIf="acesso_responsavel" floating>Chave de Acesso</ion-label>
+            <ion-input name="senha" type="password" [(ngModel)]="senha" required></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <div padding>
+          <button ion-button color="secondary" block type="submit">Acessar</button>
+          <br/>
+          <button ion-button color="secondary" clear block (click)="launchUrl('https://suap.ifrn.edu.br/comum/solicitar_trocar_senha/')">Esqueceu sua senha?</button>
+          <button ion-button color="secondary" clear block (click)="launchUrl('https://suap.ifrn.edu.br/comum/solicitar_trocar_senha/')">Deseja alterar sua senha?</button>
+           <ion-item margin-top text-wrap>
+            <ion-label color="secondary"> Acessar como Responsável</ion-label>
+            <ion-toggle color="secondary" name="acesso_responsavel" [(ngModel)]="acesso_responsavel"></ion-toggle>
+          </ion-item> 
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

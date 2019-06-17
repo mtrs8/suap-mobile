@@ -1,0 +1,14 @@
+page-login {
+    ion-content .scroll-content { background: #555 !important; }
+    ion-card { border-radius: 10px !important; }
+    ion-card, ion-item { background: #eee !important; }
+    ion-card-content { 
+        padding-top: 40px !important; 
+        padding-bottom: 40px !important; 
+    }
+    .logo-suap-login {
+        margin: 20px auto;
+        height: 100px;
+        width: 185px;
+    }
+}

@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <ion-title>
+      Trâmite #{{ tramite?.ordem }}
+    </ion-title>
+
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Fechar</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <strong>
+        Detalhamento do Trâmite - {{ tramite?.situacao }}
+      </strong>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="tramite?.situacao != 'Finalizado' && tramite?.situacao != 'Arquivado'">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <strong>Origem</strong>:
+            <br/>
+            {{ tramite?.orgao_encaminhamento }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Enviado em</strong>:
+            <br/>
+            {{ tramite?.data_encaminhamento|date:"dd/MM/yyyy" }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Enviado por</strong>:
+            <br/>
+            {{ tramite?.pessoa_encaminhamento }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Despacho de envio</strong>:
+            <br/>
+            {{ tramite?.observacao_encaminhamento }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Destino</strong>:
+            <br/>
+            {{ tramite?.orgao_recebimento }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Recebido em</strong>:
+            <br/>
+            <span *ngIf="tramite?.data_recebimento">
+              {{ tramite?.data_recebimento|date:"dd/MM/yyyy" }}
+            </span>
+            <span *ngIf="!tramite?.data_recebimento">
+              -
+            </span>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Recebido por</strong>:
+            <br/>
+            {{ tramite?.pessoa_recebimento || "-" }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Despacho de recebimento</strong>:
+            <br/>
+            {{ tramite?.observacao_recebimento || "-" }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Situação</strong>:
+            <br/>
+            <span *ngIf="tramite?.situacao == 'Recebido'">
+              <ion-badge>{{ tramite?.situacao }}</ion-badge>
+            </span>
+            <span *ngIf="tramite?.situacao != 'Recebido'">
+              <ion-badge color="energized">{{ tramite?.situacao }}</ion-badge>
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+
+    <ion-card-content *ngIf="tramite?.situacao == 'Finalizado' || tramite?.situacao == 'Arquivado'">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <strong>Origem</strong>:
+            <br/>
+            {{ tramite?.setor }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Enviado em</strong>:
+            <br/>
+            {{ tramite?.data_finalizacao|date:"dd/MM/yyyy" }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Enviado por</strong>:
+            <br/>
+            {{ tramite?.pessoa_finalizacao }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Despacho de envio</strong>:
+            <br/>
+            {{ tramite?.observacao_finalizacao }}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <strong>Situação</strong>:
+            <br/>
+            <ion-badge color="secondary">{{ tramite?.situacao }}</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

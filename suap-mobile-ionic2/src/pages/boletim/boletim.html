@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Boletim - {{ ano_periodo_selecionado?.ano_letivo }}.{{ ano_periodo_selecionado?.periodo_letivo }} </h5>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Filtrar por período</ion-label>
+      <ion-select [(ngModel)]="ano_periodo_selecionado" cancelText="Cancelar" okText="Ok" (ngModelChange)="atualizar_boletim()">
+        <ion-option *ngFor="let ano_periodo of anos_periodos_disponiveis" [value]="ano_periodo">{{ ano_periodo.ano_letivo }}.{{ ano_periodo.periodo_letivo }}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item text-wrap *ngFor="let diario of diarios">
+      <h2 text-center>
+        <strong>{{ diario.disciplina }}</strong>
+      </h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="boletim-caption">
+            Notas
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!(diario.nota_etapa_1?.nota || diario.nota_etapa_2?.nota || diario.nota_etapa_3?.nota || diario.nota_etapa_4?.nota || diario.media_disciplina || diario.nota_avaliacao_final?.nota || diario.media_final_disciplina)">
+          <ion-col class="boletim-coluna">
+            Nenhuma nota lançada.
+          </ion-col>
+        </ion-row>
+        <ion-row wrap>
+          <ion-col class="boletim-coluna" *ngIf="diario.nota_etapa_1?.nota">
+            <strong>N1</strong>
+            <br/>
+            {{ diario.nota_etapa_1?.nota || " - " }}
+          </ion-col>
+          <ion-col class="boletim-coluna" *ngIf="diario.nota_etapa_2?.nota">
+            <strong>N2</strong>
+            <br/>
+            {{ diario.nota_etapa_2?.nota || " - " }}
+          </ion-col>
+          <ion-col class="boletim-coluna" *ngIf="diario.nota_etapa_3?.nota">
+            <strong>N3</strong>
+            <br/>
+            {{ diario.nota_etapa_3?.nota || " - " }}
+          </ion-col>
+          <ion-col class="boletim-coluna" *ngIf="diario.nota_etapa_4?.nota">
+            <strong>N4</strong>
+            <br/>
+            {{ diario.nota_etapa_4?.nota || " - " }}
+          </ion-col>
+          <ion-col class="boletim-coluna" *ngIf="diario.media_disciplina">
+            <strong>MD</strong>
+            <br/>
+            {{ diario.media_disciplina || " - " }}
+          </ion-col>
+          <ion-col class="boletim-coluna" *ngIf="diario.nota_avaliacao_final?.nota">
+            <strong>NAF</strong>
+            <br/>
+            {{ diario.nota_avaliacao_final?.nota || " - " }}
+          </ion-col>
+          <ion-col class="boletim-coluna" *ngIf="diario.media_final_disciplina">
+            <strong>MDF</strong>
+            <br/>
+            {{ diario.media_final_disciplina || " - " }}
+          </ion-col>
+        </ion-row>
+        <br/> 
+        <ion-row>
+          <p style="line-height: 170%;">
+            Carga Horária: {{ diario.carga_horaria }} Aulas
+            <br/>
+            Total de Aulas: {{ diario.carga_horaria_cumprida }}
+            <br/>
+            Total de Faltas: {{ diario.numero_faltas }}
+            <br/>
+            % de Frequência: {{ diario.percentual_carga_horaria_frequentada }}
+            <br/>
+            MFD/Conceito: {{ diario.media_final_disciplina }}
+            <br/>
+            Situação: <strong>{{ diario.situacao }}</strong>
+          </p>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="diarios.length == 0">
+    <ion-item>
+      <ion-badge color="subtle">Nenhum diário encontrado.</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

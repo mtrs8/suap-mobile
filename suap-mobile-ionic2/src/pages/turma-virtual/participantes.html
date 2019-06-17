@@ -1,0 +1,25 @@
+<ion-content padding>
+  <h5 text-center *ngIf="turma_virtual.id">Turma Virtual - {{ turma_virtual.id }} - {{ turma_virtual.componente_curricular }} </h5>
+  <br/>
+  <ion-card *ngIf="turma_virtual.id">
+    <ion-card-header>
+      <strong>Participantes</strong>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let participante of turma_virtual.participantes">
+          <ion-avatar item-left>
+            <img src="https://suap.ifrn.edu.br/{{ participante.foto }}">
+          </ion-avatar>
+          <h2>{{ participante.nome }}</h2>
+          <small>
+            <strong>Matrícula:</strong> {{ participante.matricula }} <br/>
+            <span *ngIf="participante.email">
+              <strong>Email:</strong> {{ participante.email }}
+            </span>
+          </small>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

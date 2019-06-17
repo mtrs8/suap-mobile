@@ -1,0 +1,9 @@
+{
+  "name": "SUAP Mobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "br.edu.ifrn.suap.mobile",
+  "id": "br.edu.ifrn.suap.mobile"
+}

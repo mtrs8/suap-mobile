@@ -1,0 +1,140 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Ocorrências/Afastamentos</h5>
+
+  <ion-card>
+    <ion-card-header>
+      <strong>Ocorrências</strong>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="ocorrencias?.length == 0">
+      <ion-badge color="subtle">Nenhuma ocorrência encontrada.</ion-badge>
+    </ion-card-content>
+
+    <ion-list *ngIf="ocorrencias?.length != 0">
+      <ion-item *ngFor="let ocorrencia of ocorrencias">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Tipo da Ocorrência</strong>:
+                <br/>
+                {{ ocorrencia.tipo_ocorrencia }}
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Descrição</strong>:
+                <br/>
+                {{ ocorrencia.descricao }}
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Inicio</strong>:
+                <br/>
+                {{ ocorrencia.data|date:"dd/MM/yyyy" }}
+              </p>
+            </ion-col>
+            <ion-col>
+              <p>
+                <strong>Término</strong>:
+                <br/>
+                <span *ngIf="ocorrencia.data_termino">
+                  {{ ocorrencia.data_termino|date:"dd/MM/yyyy" }}
+                </span>
+                <span *ngIf="!ocorrencia.data_termino">
+                  -
+                </span>
+              </p>
+            </ion-col>
+            <ion-col>
+              <p>
+                <strong>Total de Dias</strong>:
+                <br/>
+                {{ ocorrencia.total_dias || "-" }}
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <strong>Afastamentos</strong>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="afastamentos?.length == 0">
+      <ion-badge color="subtle">Nenhum afastamento encontrado.</ion-badge>
+    </ion-card-content>
+
+    <ion-list *ngIf="afastamentos?.length != 0">
+      <ion-item *ngFor="let afastamento of afastamentos">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Tipo do Afastamento</strong>:
+                <br/>
+                {{ afastamento.tipo_afastamento }}
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Descrição</strong>:
+                <br/>
+                {{ afastamento.descricao }}
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Inicio</strong>:
+                <br/>
+                {{ afastamento.data_inicio|date:"dd/MM/yyyy" }}
+              </p>
+            </ion-col>
+            <ion-col>
+              <p>
+                <strong>Término</strong>:
+                <br/>
+                <span *ngIf="afastamento.data_termino">
+                  {{ afastamento.data_termino|date:"dd/MM/yyyy" }}
+                </span>
+                <span *ngIf="!afastamento.data_termino">
+                  -
+                </span>
+              </p>
+            </ion-col>
+            <ion-col>
+              <p>
+                <strong>Total de Dias</strong>:
+                <br/>
+                {{ afastamento.total_dias || "-" }}
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

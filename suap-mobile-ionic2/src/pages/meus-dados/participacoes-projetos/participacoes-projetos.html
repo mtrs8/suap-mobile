@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Participações em Projetos</h5>
+
+  <ion-card>
+    <ion-card-header>
+      <strong>Extensão</strong>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="participacoes_extensao?.length == 0">
+      <ion-badge color="subtle">Nenhuma participação encontrada.</ion-badge>
+    </ion-card-content>
+
+    <ion-list *ngIf="participacoes_extensao?.length != 0">
+      <ion-item *ngFor="let participacao of participacoes_extensao">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Edital</strong>:
+                <br/>
+                {{ participacao.edital }}
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Projeto</strong>:
+                <br/>
+                {{ participacao.projeto }}
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <strong>Pesquisa</strong>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="participacoes_pesquisa?.length == 0">
+      <ion-badge color="subtle">Nenhuma participação encontrada.</ion-badge>
+    </ion-card-content>
+
+    <ion-list *ngIf="participacoes_pesquisa?.length != 0">
+      <ion-item *ngFor="let participacao of participacoes_pesquisa">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Edital</strong>:
+                <br/>
+                {{ participacao.edital }}
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Projeto</strong>:
+                <br/>
+                {{ participacao.projeto }}
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

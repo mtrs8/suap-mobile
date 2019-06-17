@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Linha do Tempo: {{ authService.usuario_logado.vinculo.nome }} ({{ authService.usuario_logado.vinculo.matricula }})</h5>
+
+  <ul class="timeline">
+    <li *ngFor="let pca of historico_funcional">
+      <div class="timeline-thumb timeline-icon" [ngClass]="pca.css || 'default'"></div>
+      <div class="timeline-data">
+        <small *ngIf="pca.data != 'Hoje'">{{ pca.data|date:"dd/MM/yyyy" }}</small>
+        <small *ngIf="pca.data == 'Hoje'">{{ pca.data }}</small>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-item-container" *ngFor="let evento of pca.eventos" [ngClass]="evento.css" [innerHTML]="evento.descricao"></div>
+      </div>
+    </li>
+  </ul>
+</ion-content>

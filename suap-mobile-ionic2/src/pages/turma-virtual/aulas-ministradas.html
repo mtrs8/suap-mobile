@@ -1,0 +1,13 @@
+<ion-content padding>
+  <h5 text-center *ngIf="turma_virtual.id">Turma Virtual - {{ turma_virtual.id }} - {{ turma_virtual.componente_curricular }} </h5>
+  <br/>
+  
+  <ion-list>
+    <ion-item text-wrap *ngFor="let aula of turma_virtual.aulas">
+      <h2><strong>Etapa {{ aula.etapa }}</strong> - {{ aula.data|date:"dd/MM/yyyy" }} - {{ aula.quantidade }} aulas ministradas</h2>
+      <h3>{{ aula.conteudo }}</h3>
+      <p>Professor: {{ aula.professor }}</p>
+      <p>Nº de Faltas: {{ aula.faltas }}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

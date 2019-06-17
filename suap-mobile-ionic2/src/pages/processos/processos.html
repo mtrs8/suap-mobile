@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Meus Processos</h5>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Filtrar por campus</ion-label>
+      <ion-select [(ngModel)]="params.uo" cancelText="Cancelar" okText="Ok" (ngModelChange)="atualizar_processos()">
+        <ion-option value="">Todos</ion-option>
+        <ion-option *ngFor="let campus of unidades_organizacionais" [value]="campus.sigla">{{ campus.sigla }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Filtrar por Situação</ion-label>
+      <ion-select [(ngModel)]="params.situacao" cancelText="Cancelar" okText="Ok" (ngModelChange)="atualizar_processos()">
+        <ion-option value="">Todos</ion-option>
+        <ion-option value="1">Em Trâmite</ion-option>
+        <ion-option value="2">Finalizado</ion-option>
+        <ion-option value="3">Arquivado</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Buscar por assunto</ion-label>
+      <ion-input type="text" [(ngModel)]="params.assunto" [value]="params.assunto" clearInput="true" clearOnEdit="true"></ion-input>
+    </ion-item>
+    
+    <button ion-item detail-none (click)="atualizar_processos()">
+      Buscar
+      <ion-icon item-right name="search"></ion-icon>
+    </button>
+  </ion-list>
+
+  <ion-segment color="subtle" [(ngModel)]="filtro_processos">
+    <ion-segment-button value="todos">
+      Todos os Processos
+    </ion-segment-button>
+    <ion-segment-button value="favoritos">
+      Somente os Favoritos
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list *ngIf="filtro_processos == 'favoritos' && processos_favoritos?.length == 0">
+    <ion-item>
+      <ion-badge color="subtle">Nenhum processo marcado como favorito.</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="processos.length != 0">
+    <ng-template ngFor let-processo [ngForOf]="processos">
+      <ion-item *ngIf="(filtro_processos == 'todos') || (filtro_processos == 'favoritos' && processos_favoritos.indexOf(processo.id) != -1)">
+        <h2 text-wrap>
+          <strong>{{ processo?.assunto }}</strong>
+        </h2>
+        <p text-wrap style="line-height: 150%;">
+          <strong>Número</strong>: {{ processo?.numero_processo }}
+          <br/>
+          <strong>Pessoa Interessada</strong>: {{ processo?.interessado }}
+          <br/>
+          <strong>Data de Cadastro</strong>: {{ processo?.data_cadastro|date:"dd/MM/yyyy" }}
+          <br/>
+          <strong>Situação</strong>:
+          <span *ngIf="processo?.situacao == 'Em trâmite'">
+            <ion-badge color="energized">{{ processo?.situacao }}</ion-badge>
+          </span>
+          <span *ngIf="processo?.situacao == 'Finalizado'">
+            <ion-badge color="secondary">{{ processo?.situacao }}</ion-badge>
+          </span>
+        </p>
+
+        <button ion-button item-right clear icon-only color="subtle" (click)="favoritar_processo(processo)" *ngIf="processos_favoritos.indexOf(processo.id) == -1">
+          <ion-icon name="star-outline"></ion-icon>
+        </button>
+        <button ion-button item-right clear icon-only color="subtle" (click)="desfavoritar_processo(processo)" *ngIf="processos_favoritos.indexOf(processo.id) != -1">
+          <ion-icon color="energized" name="star"></ion-icon>
+        </button>
+        <button ion-button item-right clear icon-only color="subtle" (click)="visualizar_processo(processo)">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-item>
+    </ng-template>
+  </ion-list>
+
+  <ion-list *ngIf="processos.length == 0">
+    <ion-item>
+      <ion-badge color="subtle">Nenhum processo encontrado.</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

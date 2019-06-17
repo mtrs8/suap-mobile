@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Servidores</h5>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Filtrar por campus</ion-label>
+      <ion-select [(ngModel)]="params.uo" cancelText="Cancelar" okText="Ok" (ngModelChange)="atualizar_servidores()">
+        <ion-option value="">Todos</ion-option>
+        <ion-option *ngFor="let campus of unidades_organizacionais" [value]="campus.sigla">{{ campus.sigla }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Buscar por nome</ion-label>
+      <ion-input type="text" [(ngModel)]="params.nome" [value]="params.nome" clearInput="true" clearOnEdit="true"></ion-input>
+    </ion-item>
+    
+    <button ion-item detail-none (click)="atualizar_servidores()">
+      Buscar
+      <ion-icon item-right name="search"></ion-icon>
+    </button>
+  </ion-list>
+
+  <ion-list>
+    <ion-item text-wrap *ngFor="let servidor of servidores">
+      <img class="foto" item-left src="https://suap.ifrn.edu.br/{{ servidor.url_foto_75x100 }}">
+      <h2><strong>{{ servidor.nome }}</strong></h2>
+      
+      <div *ngIf="servidor.matricula">
+        <strong>Matrícula</strong>: {{ servidor.matricula }}
+      </div>
+
+      <div *ngIf="servidor.cargo">
+        <strong>Cargo</strong>: {{ servidor.cargo }}
+      </div>
+
+      <div *ngIf="servidor.funcao.length > 0">
+        <strong>Função</strong>: {{ servidor.funcao }}
+      </div>
+
+      <div *ngIf="servidor.email">
+        <strong>Email</strong>: {{ servidor.email }}
+      </div>
+
+      <div *ngIf="servidor.telefones_institucionais">
+        <strong>Telefones institucionais</strong>: {{ servidor.telefones_institucionais }}
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="servidores.length == 0">
+    <ion-item>
+      <ion-badge color="subtle">Nenhum setor encontrado.</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

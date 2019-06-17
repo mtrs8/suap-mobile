@@ -1,0 +1,154 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Processo {{ processo?.numero_processo }}</h5>
+
+  <ion-card>
+    <ion-card-header>
+      <strong>Informações Gerais</strong>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <strong>Nº do Processo</strong>: 
+            <br/>
+            {{ processo?.numero_processo }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Cadastro</strong>: 
+            <br/>
+            {{ processo?.data_cadastro|date:"dd/MM/yyyy" }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Situação</strong>:
+            <br/>
+            {{ processo?.situacao }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Tipo do Processo</strong>: 
+            <br/>
+            {{ processo?.tipo_processo }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Assunto</strong>: 
+            <br/>
+            {{ processo?.assunto }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Pessoa Interessada</strong>:
+            <br/>
+            {{ processo?.interessado }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Nº do Documento</strong>: 
+            <br/>
+            {{ processo?.numero_documento || "-" }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Palavras-chave</strong>: 
+            <br/>
+            {{ processo?.palavras_chave || "-" }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Campus</strong>:
+            <br/>
+            {{ processo?.campus }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Operador</strong>: 
+            <br/>
+            {{ processo?.operador }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <strong>Órgão Responsável</strong>:
+            <br/>
+            {{ processo?.orgao_responsavel }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <strong>Trâmites</strong>
+    </ion-card-header>
+    <ion-list>
+      <button ion-item *ngFor="let tramite of processo?.tramites; let isFirst = first;" (click)="verDetalheTramite(tramite)">
+        <ion-grid>
+          <ion-row *ngIf="tramite.situacao != 'Finalizado' && tramite.situacao != 'Arquivado'">
+            <ion-col text-center>
+              <strong *ngIf="isFirst">
+                Origem <br/><br/>
+              </strong>
+              {{ tramite.orgao_encaminhamento }}
+            </ion-col>
+
+            <ion-col text-center>
+              <strong *ngIf="isFirst">
+                Destino <br/><br/>
+              </strong>
+              {{ tramite.orgao_recebimento }}
+            </ion-col>
+
+            <ion-col text-center>
+              <strong *ngIf="isFirst">
+                Situação <br/><br/>
+              </strong>
+              <span *ngIf="tramite.situacao == 'Recebido'">
+                <ion-badge>{{ tramite.situacao }}</ion-badge>
+              </span>
+              <span *ngIf="tramite.situacao == 'Aguardando recebimento'">
+                <ion-badge color="energized">{{ tramite.situacao }}</ion-badge>
+              </span>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="tramite.situacao == 'Finalizado' || tramite.situacao == 'Arquivado'">
+            <ion-col text-center>
+              {{ tramite.setor }}
+            </ion-col>
+
+            <ion-col text-center>
+              -
+            </ion-col>
+
+            <ion-col text-center>
+              <ion-badge color="secondary">{{ tramite.situacao }}</ion-badge>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </button>
+    </ion-list>
+  </ion-card>
+</ion-content>

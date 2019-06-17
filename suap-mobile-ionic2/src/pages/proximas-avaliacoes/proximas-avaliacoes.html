@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Próximas Avaliações</h5>
+
+  <ion-list>
+    <ion-item text-wrap *ngFor="let avaliacao of proximas_avaliacoes_com_data_setada">
+      <h2>{{ avaliacao.diario }}</h2>
+      <h3>
+        Data da Avaliação: 
+        <ion-badge *ngIf="avaliacao.data" item-right color="danger">{{ avaliacao.data|date:"dd/MM/yyyy" }}</ion-badge>
+      </h3>
+      <p style="line-height: 170%;">
+        Tipo: {{ avaliacao.tipo }}
+        <br/>
+        Sigla: {{ avaliacao.sigla }}
+        <br/>
+        Descrição: {{ avaliacao.descricao }}
+        <br/>
+        Nota máxima: {{ avaliacao.nota_maxima }}
+        <br/>
+        <span *ngIf="avaliacao.peso !== null">Peso: {{ avaliacao.peso }}</span>
+      </p>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="proximas_avaliacoes_com_data_setada.length == 0">
+    <ion-item>
+      <ion-badge color="subtle">Nenhuma avaliação definida.</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

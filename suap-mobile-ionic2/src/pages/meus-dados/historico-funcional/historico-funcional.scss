@@ -1,0 +1,193 @@
+/*Optional*/
+.bar-stable {
+  background-color: #d9d9d9 !important;
+}
+.tabs{
+  background-color: #d9d9d9 !important;
+}
+.icon-size-lg {
+  font-size: 40px;
+}
+
+/*Timeline*/
+
+.pos-absolute-right {
+    position: absolute;
+    right: 8px;
+}
+
+.timeline {
+    position: relative;
+    margin: 15px 0 0 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    list-style: none;
+}
+
+.timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: #ddd;
+    left: 44px;
+    margin-left: -10px;
+    z-index: 1;
+}
+
+.timeline li {
+    position: relative;
+}
+
+.timeline .timeline-thumb {
+    border-radius: 500px;
+    width: 14px;
+    z-index: 2;
+    position: absolute;
+    left: -10px
+}
+
+.timeline .timeline-thumb.timeline-icon {
+    height: 14px;
+    text-align: center;
+    color: white;
+    margin-top: 12px !important;
+}
+
+.timeline .timeline-data {
+    z-index: 2;
+    position: absolute;
+    left: -34px;
+    font-weight: bold;
+    top: 35px;
+    width: 60px;
+    text-align: center;
+}
+
+.timeline .timeline-thumb.timeline-icon i {
+    font-size: 28px;
+    margin: 6px 0;
+    display: block;
+}
+
+.timeline .timeline-item {
+    background: #ddd;
+    border-radius: 10px;
+    margin-left: 35px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.timeline .timeline-item:after {
+    left: 15px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-right-color: #ddd;
+    border-width: 10px;
+    top: 10px;
+}
+
+.timeline .timeline-item .timeline-item-container {
+    padding: 10px;
+}
+
+.timeline .timeline-item .timeline-item-container h4 {
+    font-size: 130%;
+    font-weight: bold;
+}
+
+.timeline .timeline-item .timeline-item-container p {
+    margin: 0;
+}
+
+.timeline .timeline-stats {
+    position: relative;
+    font-size: 12px;
+    color: #7F8C8D;
+}
+
+
+.divider-title {
+    background: #e4e4e4;
+    padding: 5px 15px;
+}
+
+/* === Color Themes === */
+
+// Azul
+.info {
+    background-color: rgba(52, 152, 219, 0.4) !important;
+}
+.timeline-thumb.info {
+    box-shadow: 0 0 0 5px #31708f;
+}
+.info h4 {
+    color: #31708f;
+}
+
+// Cinza
+.default {
+    background-color: #ddd !important;
+}
+.timeline-thumb.default {
+    box-shadow: 0 0 0 5px #333;
+}
+.default h4 {
+    color: #333;
+}
+
+// Laranja
+.extra {
+    background-color: #f8dac6 !important;
+}
+.timeline-thumb.extra {
+    box-shadow: 0 0 0 5px #d35400;
+}
+.extra h4 {
+    color: #d35400;
+}
+
+// Amarelo
+.alert {
+    background-color: rgba(241, 196, 15, 0.4) !important;
+}
+.timeline-thumb.alert {
+    box-shadow: 0 0 0 5px #8a6d3b;
+}
+.alert h4 {
+    color: #8a6d3b;
+}
+
+// Verde
+.success {
+    background-color: rgba(46, 204, 113, 0.4) !important;
+}
+.timeline-thumb.success {
+    box-shadow: 0 0 0 5px #3c763d;
+}
+.success h4 {
+    color: #3c763d;
+}
+
+dd {
+    padding: 6px 0 1px;
+    margin: 0;
+}
+dd p {
+    text-align: left !important;
+}
+dl {
+    display: inline;
+}
+dt {
+    width: auto;
+    float: left;
+    font-weight: 700;
+    padding: 6px 5px 0 0;
+}

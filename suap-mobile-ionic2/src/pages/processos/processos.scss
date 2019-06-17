@@ -1,0 +1,9 @@
+page-processos {
+    .tramite-item {
+        border-bottom: 1px solid #dedede;
+    }
+
+    .tramite-item:last-child {
+        border-bottom: none;
+    }
+}

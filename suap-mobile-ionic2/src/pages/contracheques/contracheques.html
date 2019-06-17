@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 text-center>Contracheques</h5>
+
+  <ion-list *ngIf="contracheques?.length != 0">
+    <button ion-item text-center *ngFor="let contracheque of contracheques" (click)="visualizar_contracheque(contracheque)">
+      <h2><strong>{{ contracheque.nome_mes }} | {{ contracheque.ano }}</strong></h2>
+      <ion-grid fixed>
+        <ion-row wrap>
+          <ion-col text-center col-6 col-sm-4>
+            <h5 item-text class="txt-secondary">Bruto</h5>
+            <p item-text class="txt-secondary">{{ contracheque.bruto|currency:'BRL':true }}</p>
+          </ion-col>
+          <ion-col text-center col-6 col-sm-4>
+            <h5 item-text class="txt-danger">Descontos</h5>
+            <p item-text class="txt-danger">{{ contracheque.desconto|currency:'BRL':true }}</p>
+          </ion-col>
+          <ion-col text-center col-12 col-sm-4>
+            <h5 item-text class="txt-primary">Líquido</h5>
+            <p item-text class="txt-primary">{{ contracheque.liquido|currency:'BRL':true }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </button>
+  </ion-list>
+
+  <ion-list *ngIf="contracheques?.length == 0">
+    <ion-item>
+      <ion-badge color="subtle">Nenhum contracheque disponível.</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>

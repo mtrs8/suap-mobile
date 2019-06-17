@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <img class="logo-suap" src="assets/logo.png" style="vertical-align: middle;" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-tabs color="dark">
+    <ion-tab tabIcon="information-circle" tabTitle="Dados Gerais" [root]="tabDadosGeraisTurmaVirtualPage" [rootParams]="id_turma_virtual"></ion-tab>
+    <ion-tab tabIcon="contacts" tabTitle="Participantes" [tabBadge]="alunosService.turma_virtual.participantes?.length" tabBadgeStyle="danger" [root]="tabParticipantesTurmaVirtualPage" [rootParams]="id_turma_virtual"></ion-tab>
+    <ion-tab tabIcon="list" tabTitle="Aulas" [tabBadge]="alunosService.turma_virtual.aulas?.length" tabBadgeStyle="danger" [root]="tabAulasMinistradasTurmaVirtualPage" [rootParams]="id_turma_virtual"></ion-tab>
+    <ion-tab tabIcon="cloud-download" tabTitle="Materiais" [tabBadge]="alunosService.turma_virtual.materiais_de_aula?.length" tabBadgeStyle="danger" [root]="tabMateriaisDeAulaTurmaVirtualPage" [rootParams]="id_turma_virtual" *ngIf="alunosService.turma_virtual.materiais_de_aula?.length"></ion-tab>
+  </ion-tabs>
+</ion-content>
